@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Response } from '../../models/Response';
 import { ResponseService } from '../../services/response.service';
+import { QuestionService } from '../../services/question.service';
+
 
 @Component({
   selector: 'app-enter-response',
@@ -21,10 +23,10 @@ export class EnterResponseComponent implements OnInit {
     if (!body) {
       alert('Please add a Response');
     } else {
+      console.log(body);
       this.responseService
         .saveResponse({ body } as Response)
         .subscribe(response => {
-          console.log(response);
           this.newResponse.emit(response);
         });
     }

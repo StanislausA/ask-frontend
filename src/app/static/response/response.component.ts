@@ -8,9 +8,9 @@ import { Response } from '../../models/Response';
 })
 export class ResponseComponent implements OnInit {
   @Input() response: Response = {
-    id: 0,
-    responderId: 0,
-    questionId: 0,
+    id: 2,
+    responderId: 3,
+    questionId: 3,
     body: '',
     creationDate: ''
   };
