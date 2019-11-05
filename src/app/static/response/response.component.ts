@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-response',
@@ -13,13 +14,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./response.component.css'],
 })
 export class ResponseComponent implements OnInit {
-
   @Input() response: Response;
 
   responses: Response[];
   isEdit: boolean = false;
   responderName: string;
   expertTags = [];
+  hoverToggle: boolean = false;
 
   // Only the user who asked the question can highlight a response
   currentQuestionerId: number;
@@ -33,23 +34,29 @@ export class ResponseComponent implements OnInit {
     private authService: AuthService,
     private _snackBar: MatSnackBar,
     private responseService: ResponseService,
+    private router: Router,
   ) {}
 
   highlightResponse = (event, selectedResponse) => {
     this.http
-      .patch(`${this.env}/${this.response.questionId}/highlightedResponseId`, selectedResponse
+      .patch(
+        `${this.env}/${this.response.questionId}/highlightedResponseId`,
+        selectedResponse,
       )
       .subscribe(
         data => {
           this._snackBar.open('Highlighted Answer', 'OK', {
             duration: 2000,
           });
+          this.router.navigate(['/user-questions']);
         },
         error => {
-          this._snackBar.open("Highlight unsuccessful", "OK", {duration: 3000});
+          this._snackBar.open('Highlight unsuccessful', 'OK', {
+            duration: 3000,
+          });
         },
       );
-  }
+  };
 
   onNewResponse(response: Response) {
     this.responses.unshift(response);
@@ -72,7 +79,7 @@ export class ResponseComponent implements OnInit {
           responderId: 0,
           questionId: 0,
           body: '',
-          creationDate: ''
+          creationDate: '',
         };
       }
     });
@@ -100,7 +107,9 @@ export class ResponseComponent implements OnInit {
       this.expertTags = result.user.expertTags;
     });
 
-    let observable = this.http.get(`${environment.questionsUri}/${this.questionService.getQuestionId()}`);
+    let observable = this.http.get(
+      `${environment.questionsUri}/${this.questionService.getQuestionId()}`,
+    );
     observable.subscribe(result => {
       this.currentQuestionObject = result;
       this.currentQuestionerId = this.currentQuestionObject.questionerId;
