@@ -39,21 +39,21 @@ describe('FilteredQuestionListComponent', () => {
     // expect(spy).toHaveBeenCalled();
   });
 
-  // it('test setQuestionsListWithFilteredUri', ()=>{
-  //   let result = component.setQuestionsListWithFilteredUri('test');
-  //   expect(result).toBeUndefined();
-  // });
+  it('test setQuestionsListWithFilteredUri', ()=>{
+    let result = component.setQuestionsListWithFilteredUri('test');
+    expect(result).toBeUndefined();
+  });
   
-  // it('test refreshQuestions', ()=>{
-  //   let hasBeenFiltered: boolean = false;
-  //   let result = component.refreshQuestions();
-  //   expect(result).toBeUndefined();
-  // });
+  it('test refreshQuestions', ()=>{
+    let hasBeenFiltered: boolean = false;
+    let result = component.refreshQuestions();
+    expect(result).toBeUndefined();
+  });
 
-  // it('test nextPage', ()=>{
-  //   let result = component.nextPage();
-  //   expect(result).toBeUndefined();
-  // });
+  it('test nextPage', ()=>{
+    let result = component.nextPage();
+    expect(result).toBeUndefined();
+  });
 
   it('test previousPage', ()=>{
     let result = component.previousPage();

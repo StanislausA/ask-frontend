@@ -6,10 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialImportModule } from 'src/material-import/material-import.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResponseService } from 'src/app/services/response.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
 
 describe('EnterResponseComponent', () => {
   let component: EnterResponseComponent;
@@ -38,4 +37,20 @@ describe('EnterResponseComponent', () => {
   //   expect(result).toBeUndefined();
   // });
 
+  it('test updateResponse', ()=>{
+    const service: ResponseService = TestBed.get(ResponseService);
+    let result = component.updateResponse();
+    // let spy =  spyOn(service, 'updateResponse');
+    // component.updateResponse();
+    expect(result).toBeUndefined();
+    // expect(spy).toHaveBeenCalled();
+  });
+
+  it('test addResponse', ()=>{
+    let result = component.addResponse('');
+    // let spy =  spyOn(service, 'updateResponse');
+    // component.updateResponse();
+    expect(result).toBeUndefined();
+    // expect(spy).toHaveBeenCalled();
+  });
 });

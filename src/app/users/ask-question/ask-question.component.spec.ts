@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
 
 describe('AskQuestionComponent', () => {
   let component: AskQuestionComponent;
@@ -54,12 +54,10 @@ describe('AskQuestionComponent', () => {
     expect(result).toBeUndefined();
   });
 
-  // it('test ngOnInit', ()=>{
-  //   let result = component.ngOnInit();
-  //   let spy =  spyOn(component, 'clearForm');
-  //   component.ngOnInit();
+  // it('test add', ()=>{
+  //   let event: MatChipInputEvent;
+  //   let result = component.add(event);
   //   expect(result).toBeUndefined();
-  //   expect(spy).toHaveBeenCalled();
   // });
 
 });
