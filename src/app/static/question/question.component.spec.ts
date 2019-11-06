@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuestionComponent } from './question.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { MaterialImportModule } from 'src/material-import/material-import.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
@@ -8,7 +14,9 @@ describe('QuestionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuestionComponent ]
+      declarations: [ QuestionComponent ],
+      imports: [HttpClientModule, FormsModule, MaterialImportModule, RouterTestingModule, RouterModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));
@@ -21,5 +29,10 @@ describe('QuestionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('test getPhotos', ()=>{
+    let result = component.getPhotos();
+    expect(result).toBeUndefined();
   });
 });

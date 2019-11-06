@@ -50,7 +50,7 @@ export class SelfTagsComponent implements OnInit {
     this.tagService
       .saveExpertTags(
         this.expertSkills.map<Tag>(t => {
-          return { name: t, id: 0 };
+          return { id: 0, name: t };
         }),
         this.authService.account.id,
       )

@@ -167,7 +167,6 @@ export class AskQuestionComponent implements OnInit {
   };
 
   sendImage() {
-
   }
 
   //submitting the images
