@@ -67,6 +67,7 @@ export class AskQuestionComponent implements OnInit {
       ),
     );
     this.ts.getTags().subscribe(tags => {
+      // tslint:disable-next-line: prefer-for-of
       for (let index = 0; index < tags.length; index++) {
         this.allTagsFromServer.push(tags[index].name);
       }

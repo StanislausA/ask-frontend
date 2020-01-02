@@ -23,7 +23,6 @@ export class Highlight extends AppPage{
         // expect(parent.element('mat-card-header').element('mat-card-title')).toBeDefined('q=16');
         // expect(element(by.css('.high'))).;
     // }
-    
     selectQuestion(question: number) {
         element(by.id('q2=' + question)).click();
       }
