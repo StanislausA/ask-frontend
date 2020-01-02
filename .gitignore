@@ -1,10 +1,12 @@
 ###Angular
 .DS_STORE
 
+/coverage/
 /dist/
 /bazel-out
 /integration/bazel/bazel-*
 e2e_test.*
+coverage
 node_modules
 tools/gulp-tasks/cldr/cldr-data/
 
