@@ -33,7 +33,7 @@ export class PreviewQuestionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.question);
+
    }
 
   sethigh(){
