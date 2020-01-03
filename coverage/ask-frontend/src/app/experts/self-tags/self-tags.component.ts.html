@@ -143,7 +143,15 @@
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,10 +244,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Component, OnInit, Injectable } from '@angular/core';
 import { Tag } from '../../models/Tag';
 import { TagService } from 'src/app/services/tags.service';
@@ -253,8 +257,14 @@ import { MatSnackBar} from '@angular/material/snack-bar';
  * Populate list of available tags to associate with expert. Expert checks and unchecks tag names based on his or her skillset.
  * Expert clicks submit to update associated tags in database.
  * Self tags component listens for event emitter from tag creation component to add new tag to tag array.
- * 
+ *
  */
+&nbsp;
+ /**
+  * MODIFIED BY Sierra Nicholes, Tanguy Bousole
+  *
+  * Modifications for more readable code, added ability for "+number of skills" tag to show up when expert's tag list is too large to fit.
+  */
 &nbsp;
 @Injectable({
   providedIn: 'root',
@@ -266,7 +276,7 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 })
 export class SelfTagsComponent implements OnInit {
   tags: Tag[];
-<span class="cstat-no" title="statement not covered" >  isChecked: boolean = false;</span>
+<span class="cstat-no" title="statement not covered" >  isChecked = false;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  expertId = this.authService.account.id;</span>
 <span class="cstat-no" title="statement not covered" >  expertSkills: string[] = [];</span>
@@ -283,9 +293,9 @@ export class SelfTagsComponent implements OnInit {
 <span class="cstat-no" title="statement not covered" >    if ($event.checked === true) {</span>
 <span class="cstat-no" title="statement not covered" >      this.expertSkills.push(id);</span>
     } else {
-      //delete the value and close the empty array slot
+      // delete the value and close the empty array slot
 <span class="cstat-no" title="statement not covered" >      this.expertSkills.splice(this.expertSkills.indexOf(id), 1);</span>
-    };
+    }
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  onSubmit(</span>) {
@@ -297,20 +307,20 @@ export class SelfTagsComponent implements OnInit {
         this.authService.account.id,
       )
       .subscribe();
-<span class="cstat-no" title="statement not covered" >      this.snackBar.open(`Tags Updated`, `OK`, { duration: 2000 });</span>
+<span class="cstat-no" title="statement not covered" >    this.snackBar.open(`Tags Updated`, `OK`, { duration: 2000 });</span>
   }
 &nbsp;
   // For initialization, currentExpert associated tags are prechecked in list of tags
 <span class="fstat-no" title="function not covered" >  checkExpertTags(</span>) {
-<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; this.tags.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    for (const t of this.tags) {</span>
 <span class="cstat-no" title="statement not covered" >      this.currentExpert.expertTags.forEach(<span class="fstat-no" title="function not covered" >element </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (element.name == this.tags[i].name) {</span>
-<span class="cstat-no" title="statement not covered" >          this.toggle({ checked: true }, this.tags[i].name);</span>
-<span class="cstat-no" title="statement not covered" >          this.tags[i].checked = true;</span>
+<span class="cstat-no" title="statement not covered" >        if (element.name === t.name) {</span>
+<span class="cstat-no" title="statement not covered" >          this.toggle({checked: true}, t.name);</span>
+<span class="cstat-no" title="statement not covered" >          t.checked = true;</span>
         } else {
 <span class="cstat-no" title="statement not covered" >          return false;</span>
         }
-      });
+      })
     }
   }
 &nbsp;
@@ -322,7 +332,7 @@ export class SelfTagsComponent implements OnInit {
 <span class="cstat-no" title="statement not covered" >        this.checkExpertTags();</span>
       },
 <span class="fstat-no" title="function not covered" >      error </span>=&gt; {
-        //still populate tags even if getting the expert tags fails
+        // still populate tags even if getting the expert tags fails
 <span class="cstat-no" title="statement not covered" >        this.tags = tags;</span>
 <span class="cstat-no" title="statement not covered" >        console.error(error);</span>
       });
@@ -330,12 +340,8 @@ export class SelfTagsComponent implements OnInit {
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  addNewTag(</span>) {
-<span class="cstat-no" title="statement not covered" >    this.tagService.getTags().subscribe(<span class="fstat-no" title="function not covered" >(t</span>agsUpdate) =&gt; {<span class="cstat-no" title="statement not covered" >this.tags.push(tagsUpdate[tagsUpdate.length - 1])})</span></span>
+<span class="cstat-no" title="statement not covered" >    this.tagService.getTags().subscribe(<span class="fstat-no" title="function not covered" >(t</span>agsUpdate) =&gt; { <span class="cstat-no" title="statement not covered" >this.tags.push(tagsUpdate[tagsUpdate.length - 1]); </span>});</span>
   }
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 }
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -343,7 +349,7 @@ export class SelfTagsComponent implements OnInit {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 02 2020 09:55:51 GMT-0500 (Eastern Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jan 03 2020 13:32:41 GMT-0500 (Eastern Standard Time)
 </div>
 </div>
 <script src="..\..\..\..\prettify.js"></script>
