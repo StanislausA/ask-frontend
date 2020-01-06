@@ -1,8 +1,7 @@
 import { Highlight } from './highlight.po';
 import { browser, logging, element, by } from 'protractor';
 import { checkServerIdentity } from 'tls';
-describe('highlighting answer and checking question preview has a border in "/questions"', () =>
-{
+describe('highlighting answer and checking question preview has a border in "/questions"', () => {
     let page: Highlight;
 
     beforeEach(() => {
@@ -14,16 +13,15 @@ describe('highlighting answer and checking question preview has a border in "/qu
         page.selectQuestion(16);
         page.selectResponse(6);
         page.clickHighlight(6);
-        page.navigateToAllQuestions();
-        browser.sleep(3000);
+        browser.sleep(1000);
+        page.navigateToUserQuestions();
+        browser.sleep(1000);
         expect(element(by.id('q1=16')).getAttribute('class')).toContain('high');
-        browser.sleep(3000);
+        browser.sleep(2000);
     });
 
     it('should not highlight question preview that does not have a highlighted response', () => {
-        browser.waitForAngularEnabled(false);
-
-        page.navigateToAllQuestions();
+        page.navigateToUserQuestions();
         expect(element(by.id('q1=6')).getAttribute('class')).toEqual('question-card mat-card question');
         browser.sleep(2000);
     });

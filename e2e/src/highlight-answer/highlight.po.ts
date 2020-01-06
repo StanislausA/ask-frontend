@@ -8,8 +8,11 @@ export class Highlight extends AppPage {
         this.login(1);
         element(by.css('[routerlink="/user-questions"')).click();
     }
-    navigateToAllQuestions() {
-        element(by.css('[routerlink="/questions"')).click();
+
+    navigateToUserQuestions() {
+        browser.sleep(1000);
+        element(by.css('[routerlink="/user-questions"')).click();
+        browser.sleep(1000);
     }
     selectQuestion(question: number) {
         element(by.id('q2=' + question)).click();
@@ -17,11 +20,13 @@ export class Highlight extends AppPage {
     selectResponse(response: number) {
         browser.sleep(2000);
         browser.waitForAngularEnabled(false);
-
-        browser.actions().mouseMove(element(by.id('r=' + response))).perform();
+        browser
+            .actions()
+            .mouseMove(element(by.id('r=' + response)))
+            .perform();
     }
     clickHighlight(response: number) {
-
-        element(by.id('btn' + response)).click();
+        browser.sleep(1000);
+        element(by.id( 'btn' + response)).click();
     }
 }
