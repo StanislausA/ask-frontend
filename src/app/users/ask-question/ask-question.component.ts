@@ -44,6 +44,7 @@ export class AskQuestionComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags: string[] = [];
   allTagsFromServer: string[] = [];
+  cleanMarkdown = true;
 
   // image file
   selectedFile: File = null;
@@ -211,7 +212,10 @@ export class AskQuestionComponent implements OnInit {
       tagList: [''],
       body: [''],
     });
+    this.cleanMarkdown = false;
     this.tags = [];
     this.selectedFile = null;
+    setTimeout(() =>
+      this.cleanMarkdown = true, );
   }
 }
