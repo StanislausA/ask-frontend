@@ -11,6 +11,12 @@ import { Tag } from '../../models/Tag';
  *
  */
 
+ /**
+  * modified by: Alejandra Hyuanca and Manisha Gurung
+  *
+  * Added sethigh function to call the high class in css, which highlights the question border if there is any * highlighted response
+ */
+
 @Component({
   selector: 'app-preview-question',
   templateUrl: './preview-question.component.html',
@@ -66,7 +72,7 @@ export class PreviewQuestionComponent implements OnInit, AfterViewChecked {
     const classes = {
       question: true,
       high: this.question.highlightedResponseId != null
-    }
+    };
     return classes;
   }
 

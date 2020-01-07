@@ -1,53 +1,90 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { PreviewQuestionComponent } from './preview-question.component';
 import { QuestionService } from 'src/app/services/question.service';
+import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Injector, PipeTransform } from '@angular/core';
+import { Router } from '@angular/router';
 import { Question } from 'src/app/models/Question';
 import { Response } from 'src/app/models/Response';
-import { Router } from '@angular/router';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { element, by } from 'protractor';
+import { Observable } from 'rxjs';
+import { By } from '@angular/platform-browser';
+import { Tag } from 'src/app/models/Tag';
+import { User } from 'src/app/models/User';
+import { SkilltagPipe } from 'src/app/static/response/skilltag.pipe';
 
+
+
+const MockUser: User = {
+  id: 1,
+  username: 'string',
+  isExpert: false,
+  expertTags: [],
+  questions: [],
+  responses: []
+};
+const MockQuestion: Question = {
+  id: 201,
+  username: null,
+  tags: ['Java' , 'Angular'],
+  userId: 203,
+  user: MockUser,
+  head: 'Mock Header',
+  body: 'Mock Body',
+  creationDate: '2015-12-17',
+  associatedTags: [{id: 2, name: 'm3'}, {id: 3, name: 'm3'},{id: 4, name: 'm4'}, {id: 5, name: 'm5'}],
+  responses: [],
+  highlightedResponseId: null,
+  images: null
+};
+const MockTag: Tag = {
+  id: 1,
+  name: 'Mock Tag'
+};
+class MockQuestionService {
+  id = 1;
+  getQuestions(): Observable<Question[]> {
+    return new Observable<Question[]>();
+  }
+  setQuestionId(questionId) {
+    this.id = questionId;
+  }
+  getQuestionId() {
+    return this.id;
+  }
+  getQuestionById(questionId): Observable<Question> {
+    return new Observable<Question>();
+  }
+  getQuestionImages(questionId): Observable<Question> {
+    return new Observable<Question>();
+  }
+  saveQuestion(question: Question): Observable<Question> {
+    return new Observable<Question>();
+  }
+  updateQuestion(question: Question): Observable<Question> {
+    return new Observable<Question>();
+  }
+  highlightResponse(question: Question): Observable<Question> {
+    return new Observable<Question>();
+  }
+  removePost(question: Question | number): Observable<Question> {
+    return new Observable<Question>();
+  }
+}
+
+
+const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
 describe('PreviewQuestionComponent', () => {
   let component: PreviewQuestionComponent;
   let fixture: ComponentFixture<PreviewQuestionComponent>;
-
-  const res: Response = {
-    user: 'smth',
-    id: 4,
-    responderId: 1,
-    questionId: 2,
-    body: 'smth',
-    creationDate: 'date'
-  }
-
-  const ques: Question ={
-    id: 201,
-    username: 'Mock',
-    tags: ['Java' , 'Angular'],
-    userId: 203,
-    head: 'Mock Header',
-    body: 'Mock Body',
-    creationDate: 'Mock Date',
-    associatedTags: [],
-    responses: [],
-    highlightedResponseId: res
-
-
-  }
-  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-  const mockQuesService = jasmine.createSpyObj('QuestionService', ['getQuestions']);
-
+  // Changes made
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PreviewQuestionComponent ],
-      providers: [ {provide: QuestionService,
-        useValue: mockQuesService
-      },
-      {provide: Router, useValue: routerSpy}
-    ],
+      declarations: [ PreviewQuestionComponent, SkilltagPipe],
+      providers: [
+        {provide: QuestionService, useClass: MockQuestionService},
+        {provide: Router, useValue: routerSpy},
+      ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
@@ -56,6 +93,8 @@ describe('PreviewQuestionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PreviewQuestionComponent);
     component = fixture.componentInstance;
+    component.question = MockQuestion;
+    component.tag = MockTag;
     fixture.detectChanges();
   });
 
@@ -63,12 +102,16 @@ describe('PreviewQuestionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  fit('should navigate', () => {
-
-    const q = mockQuesService.jasmine;
-    
-
-  });
-
+  it('should test click for viewQuestion', () => {
+    const el = fixture.debugElement.query(By.css('mat-card-title'));
+    el.triggerEventHandler('click', {});
+    fixture.detectChanges();
+    expect(component.viewQuestion).toBeDefined();
 });
 
+  it('', () => {
+
+    
+ });
+
+});
